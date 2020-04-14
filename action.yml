@@ -8,10 +8,6 @@ inputs:
     description: 'The key of the version value. By default: `version`'
     required: false
     default: 'version'
-  version_value:
-    description: 'The current version in the file. By default: `env.VERSION_VALUE`'
-    required: false
-    default: ${{ env.VERSION_VALUE }}
 
 runs:
   using: 'docker'
