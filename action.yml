@@ -1,18 +1,30 @@
-name: Release
-description: 'Process to release a new version and commit the change to the next snapshot'
+name: Properties Version bump-up
+description: 'Change the version in the specified properties file to the next snapshot'
 inputs:
-  create_branch:
-    description: 'Create a branch for release'
-    required: false
-    default: 'false'
   version_file:
-    description: 'Create a branch for release'
+    description: 'The properties file containing the version info'
+    required: true
+  version_key:
+    description: 'The key of the version value. By default: `version`'
     required: false
-    default: 'false'
+    default: 'version'
+  version_value:
+    description: 'The current version in the file. By default: `env.VERSION_VALUE`'
+    required: false
+    default: ${{ env.VERSION_VALUE }}
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.create_branch }}
     - ${{ inputs.version_file }}
+    - ${{ inputs.version_key }}
+    - ${{ inputs.version_value }}
+
+outputs:
+  next_version:
+    description: 'The next snapshot version now placed on the properties file'
+
+branding:
+  icon: 'file-plus'
+  color: blue
